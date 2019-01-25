@@ -139,7 +139,7 @@ namespace EventPlanning.Controllers
         public ActionResult DeleteEvent(int? id)
         {
             EventDTO eventDTO = db.GetById(id);
-            if (eventDTO == null || eventDTO.UserId != User.Identity.GetUserId())
+            if (User.IsInRole("admin") == false && (eventDTO == null || eventDTO.UserId != User.Identity.GetUserId()))
             {
                 return HttpNotFound();
             }
@@ -151,7 +151,7 @@ namespace EventPlanning.Controllers
         [HttpPost, ActionName("DeleteEvent")]
         public ActionResult DeleteConfirmed(int? id)
         {
-            if (db.GetById(id).UserId != User.Identity.GetUserId() || !db.DeleteEvent(id))
+            if (User.IsInRole("admin") == false && db.GetById(id).UserId != User.Identity.GetUserId() || !db.DeleteEvent(id))
             {
                 return HttpNotFound();
             }
