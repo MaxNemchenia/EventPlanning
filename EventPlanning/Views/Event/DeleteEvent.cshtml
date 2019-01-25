@@ -1,0 +1,31 @@
+﻿@model EventPlanning.Models.EventModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DeleteEvent</title>
+</head>
+<body>
+    <div  class="form-horizontal">
+        <h2>Delete</h2>
+
+        <h4><p>Name </p></h4> <p> @Html.DisplayFor(model => model.Name)</p>
+
+
+        @using (Html.BeginForm())
+        {
+            <button class="btn btn-default" type="submit">Delete</button>
+
+
+
+            <a  href="/Event/EventForm" class="btn btn-default">Back</a>
+        }
+    </div>
+</body>
+</html>

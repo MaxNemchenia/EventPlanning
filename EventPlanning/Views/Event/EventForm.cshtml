@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EventForm</title>
+</head>
+<body>
+    <br/>
+    <div  class="form-horizontal">
+        <table>
+            @foreach (var b in ViewBag.Events)
+            {
+            <tr>
+                <td><p><b>Event</b> @b.Name  &nbsp; </p></td>
+                <td><p><b>Date</b>  @b.Date &nbsp; </p></td>
+           
+
+                <td><p><a href="/Event/FullInformation/@b.Id" class="btn btn-default">Full Information</a></p></td>
+                <td><p><a href="/Event/RegistrationOnEvent/@b.Id" class="btn btn-default">Registration</a></p></td>
+                @if (@User.Identity.IsAuthenticated)
+                {
+                    <td><p><a href="/Event/Participant/@b.Id" class="btn btn-default">Participants</a></p></td>
+                }
+                @if (b.UserId == ViewBag.UserId)
+                {
+                    <td><p><a href="/Event/EditEvent/@b.Id" class="btn btn-default">Edit</a></p></td>
+                }
+                @if (b.UserId == ViewBag.UserId || User.IsInRole("admin"))
+                {
+                    <td><p><a href="/Event/DeleteEvent/@b.Id" class="btn btn-default">Delete</a></p></td>
+                }
+            </tr>
+            }
+
+
+        </table>
+        @if (User.IsInRole("admin") || User.IsInRole("user"))
+        {
+            <p><a class="btn btn-default" href="/Event/AddEvent">Add</a></p>
+        }
+    </div>
+</body>
+</html>

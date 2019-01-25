@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+</head>
+<div class="mainBody">
+   
+    <h2>New Event</h2>
+    <form method="post">
+        <div  class="form-horizontal">
+        <p>Name</p>
+        <input name="name" type="text" maxlength="20" />
+        <br/>
+        <p>Date</p>
+        <input name="date" type="datetime-local"/>
+        <div id="FieldsBlock">
+        </div>
+
+        <input type="button" value="+" name="AddField" class="btn btn-default" onclick="add()" />
+        <br/>
+        <button type="submit" class="btn btn-default">Add</button>
+        <button type="reset" class="btn btn-default">Reset</button>
+        <a href="/Event/EventForm" class="btn btn-default">Back</a>
+            </div>
+    </form>
+
+
+
+    <script>
+        var i = 1;
+        function add() {
+            $("#FieldsBlock").append(
+                `<div class="field" id="field` + i + `">
+                    Name: <input name="Names" type="text"  maxlength="20" />
+                    Value: <input name="Values" type="text"  maxlength="20" />
+                    <input type="button" value="X" class="btn btn-default" onclick="remove(` + i + `)" /><br/>
+                 </div>`);
+            i = i + 1;
+        }
+
+
+        function remove(num) {
+            $("#field" + num).remove();
+        }
+    </script>
+</div>
+

@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RegistrationOnEvent</title>
+</head>
+<body>
+    <form method="post">
+        <div  class="form-horizontal">
+            <input name="EventId" type="text" value="@Model.Id" hidden />
+            Email: <input name="Email" type="text" />
+        </div>
+        <button type="submit" class="btn btn-default">Registration</button>
+        <button type="reset" class="btn btn-default">Reset</button>
+        <a href="/Event/EventForm" class="btn btn-default">Back</a>
+    </form>
+</body>
+</html>

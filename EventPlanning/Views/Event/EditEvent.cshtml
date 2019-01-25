@@ -1,0 +1,58 @@
+﻿@model EventPlanning.Models.EventModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+</head>
+<div  class="form-horizontal">
+    <h2>Event: @Model.Name</h2>
+    <form method="post">
+        <p>Name</p>
+        <input name="name" type="text" maxlength="20" value="@Model.Name" />
+        @{
+            string dateTime= string.Format("{0:d4}", Model.Date.Year)+"-"+string.Format("{0:d2}", Model.Date.Month)+"-"+
+                string.Format("{0:d2}", Model.Date.Day) +"T"+ string.Format("{0:d2}", Model.Date.Hour) +":"+
+                string.Format("{0:d2}", Model.Date.Minute);
+        }
+        <p>Date</p>
+        <input name="date" type="datetime-local" value="@dateTime" min="2019-01-01T00:00" />
+    
+        <div id="FieldsBlock">
+            @foreach (var field in Model.Fields)
+            {
+                <div id=@Html.Raw("field" + field.Id)>
+                    Name: <input name="Names" type="text" maxlength="20" value=@field.Name />
+                    Value: <input name="Values" type="text" maxlength="20" value="@field.Value" />
+                    <input type="button" value="X" class="btn btn-default" onclick="remove(@field.Id)" /><br />
+                </div>
+            }
+        </div>
+        
+        <input type="button" value="+" class="btn btn-default" name="AddField" onclick="add()" />
+        <br />
+        <button type="submit" class="btn btn-default">Save</button>
+        <a href="/Event/EventForm" class="btn btn-default">Back</a>
+    </form>
+
+    <script>
+        var i = 1;
+        function add() {
+            $("#FieldsBlock").append(
+                `<div class="field" id="field` + i + `">
+                            Name: <input name="Names" type="text" maxlength="20"/>
+                            Value: <input name="Values" type="text" maxlength="20"/>
+                            <input type="button" value="X" class="btn btn-default" onclick="remove(` + i + `)" /><br/>
+                         </div>`);
+            i = i + 1;
+        }
+
+
+
+        function remove(num) {
+            $("#field" + num).remove();
+        }
+    </script>
+</div>
+
